@@ -30,12 +30,13 @@ public class Certificat implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int IdCerteficat;
-	private String NomCerteficate;
+	private String nomCerteficate;
 	@Temporal(TemporalType.DATE)
-	private Date Date;
-	private String Username;
-	private String Trainername;
+	private Date date;
+	private String username;
+	private String trainername;
 	private String duration;
+	private String email;
 	@JsonIgnore
 	@ManyToMany( mappedBy="certificat",cascade = CascadeType.ALL)
 	private List<Training> trainings;

@@ -18,9 +18,9 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	UserRepository userRepository;
 	@Override
-	public void affecterUserToTraining(int iduser, int idTraining) {
+	public void affecterUserToTraining(int iduser, String idTraining) {
 		User user = userRepository.findById(iduser).get();
-		Training training = trainingRepository.findById(idTraining).get();
+		Training training = trainingRepository.findByIdTrainning(idTraining);
 		training.getUsers().add(user);
 		trainingRepository.save(training);
 		

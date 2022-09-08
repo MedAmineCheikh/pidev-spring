@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.dto.updatecertifcatdto;
 import tn.esprit.spring.entities.Certificat;
 import tn.esprit.spring.entities.Training;
+import tn.esprit.spring.mappers.certififcatmapper;
 import tn.esprit.spring.repository.CertificatRepository;
 import tn.esprit.spring.repository.TrainingRepository;
 @Service
@@ -16,6 +18,8 @@ public class CertificatServiceImpl implements ICertificatsService {
 	CertificatRepository certificatRepository;
 	@Autowired
 	TrainingRepository trainingRepository;
+	@Autowired
+	certififcatmapper certififcatmappers;
 	@Override
 	public List<Certificat> retrieveAllCertificats() {
 		// TODO Auto-generated method stub
@@ -37,9 +41,11 @@ public class CertificatServiceImpl implements ICertificatsService {
 	}
 
 	@Override
-	public Certificat updateCertificats(Certificat c) {
+	public void updateCertificats(updatecertifcatdto dto) {
 		// TODO Auto-generated method stub
-		return certificatRepository.save(c);
+		Certificat certificat= certificatRepository.findById(dto.getIdCerteficat()).get();
+		certififcatmappers.updateCertifiFromDto(dto,certificat);
+		certificatRepository.save(certificat);
 	}
 
 	@Override
@@ -49,13 +55,12 @@ public class CertificatServiceImpl implements ICertificatsService {
 		return c;
 	}
 	@Override
-	public void affecterCertificatToTraining(int idCer, int idTraining) {
+	public void affecterCertificatToTraining(int idCer, String idTraining) {
 		Certificat certificat = certificatRepository.findById(idCer).get();
-		Training training = trainingRepository.findById(idTraining).get();
+		Training training = trainingRepository.findByIdTrainning(idTraining);
 		training.getCertificat().add(certificat);
 		trainingRepository.save(training);
 
 	}
 
 }
-	

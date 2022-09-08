@@ -8,6 +8,6 @@ import tn.esprit.spring.entities.Training;
 
 public interface IUserService {
 
-	void affecterUserToTraining(int iduser, int idTraining);
+	void affecterUserToTraining(int iduser, String idTraining);
 	
 }

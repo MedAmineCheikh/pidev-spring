@@ -29,7 +29,7 @@ public class UserTrainingController {
 		}
 		// http://localhost:8089/SpringMVC/userTraining/affecter-user-training/{id-user}/{id-training}
 		@PutMapping("/affecter-user-training/{id-user}/{id-training}")
-		public void affecterUserToTraining(@PathVariable("id-user") int idUser, @PathVariable("id-training") int idTraining){
+		public void affecterUserToTraining(@PathVariable("id-user") int idUser, @PathVariable("id-training") String idTraining){
 			UserService.affecterUserToTraining(idUser,idTraining);
 			}
 		@GetMapping("/findBytheme/{Theme}")

@@ -2,15 +2,13 @@ package tn.esprit.spring.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import tn.esprit.spring.utils.QRCodeGenerator;
 
 @RestController
 @RequestMapping("/QR")
+@CrossOrigin(origins="http://localhost:4200")
 public class QRCodeController {
 	
 	private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/QRCode.png";

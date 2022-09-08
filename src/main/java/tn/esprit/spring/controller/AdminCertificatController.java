@@ -14,15 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.dto.updatecertifcatdto;
 import tn.esprit.spring.entities.Certificat;
 import tn.esprit.spring.services.ICertificatsService;
 import tn.esprit.spring.services.ITrainingService;
+import tn.esprit.spring.services.mailservice;
+
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
-@RequestMapping("/adminCertificat")
+
 public class AdminCertificatController {
 	@Autowired
 	ITrainingService trainingService;
+	@Autowired
+	mailservice mailservices;
 	@Autowired
 	ICertificatsService certificatService;
 	// http://localhost:8089/SpringMVC/adminCertificat/retrieve-all-certificats
@@ -39,7 +44,13 @@ public class AdminCertificatController {
 		// http://localhost:8089/SpringMVC/adminCertificat/add-certificat
 		@PostMapping("/add-certificat")
 		public Certificat addCertificats(@RequestBody Certificat c) {
+			mailservices.sendMessageWithAttachment(c.getEmail(),c.getUsername(),
+					c.getNomCerteficate(),c.getTrainername());
 		return certificatService.addCertificats(c);
+
+
+
+
 		}
 		// http://localhost:8089/SpringMVC/adminCertificat/remove-certificat/{certificat-id}
 		@DeleteMapping("/remove-certificat/{certificat-id}")
@@ -48,14 +59,14 @@ public class AdminCertificatController {
 		certificatService.deleteCertificats(certificatId);
 		}
 		// http://localhost:8089/SpringMVC/adminCertificat/modify-certificat/1
-		@PutMapping("/modify-certificat/{id}")
+		@PutMapping("/modify-certificat")
 		@ResponseBody
-		public Certificat updateCertificats(@PathVariable("id") int IdCertificat,@RequestBody Certificat certificat) {
-		return certificatService.updateCertificats(certificat);
+		public void updateCertificats(@RequestBody updatecertifcatdto certificat) {
+		certificatService.updateCertificats(certificat);
 		}
 		// http://localhost:8089/SpringMVC/adminCertificat/affecter-certificat-training/{id-certificat}/{id-training}
 		@PutMapping("/affecter-certificat-training/{id-certificat}/{id-training}")
-		public void affecterCertificatToTraining(@PathVariable("id-certificat") int idCer, @PathVariable("id-training") int idTraining){
+		public void affecterCertificatToTraining(@PathVariable("id-certificat") int idCer, @PathVariable("id-training") String idTraining){
 			certificatService.affecterCertificatToTraining(idCer,idTraining);
 			}
 

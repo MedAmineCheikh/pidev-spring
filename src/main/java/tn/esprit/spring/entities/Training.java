@@ -4,16 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,8 +23,7 @@ public class Training implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int IdTrainning;
+	private String idTrainning;
 	private String TrainningName;
 	private String TrainerName;
 	private String Duration;
@@ -49,5 +39,7 @@ public class Training implements Serializable {
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<User> users;
-	
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JsonIgnore
+	private List<FileDB> fileDB;
 }

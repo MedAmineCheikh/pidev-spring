@@ -22,12 +22,14 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.pusher.rest.Pusher;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableAspectJAutoProxy
 @EnableScheduling
 @CrossOrigin(origins="http://localhost:4200")
 @EnableWebMvc   //@EnableSwagger2
+@EnableSwagger2
 public class WomensiaApplication {
 	private static final boolean TRACE_MODE = false;
 	
